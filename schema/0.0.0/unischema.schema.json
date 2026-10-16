@@ -1,6 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "DirectoryContentsSchema",
+	"$id": "https://raw.githubusercontent.com/rin00159/union-schema/refs/heads/main/schema/0.0.0/unischema.schema.json",
+	"title": "Union Schema",
 	"description": "複数の意味定義が重複しうる`JSONShema定義`同士を安全に併用可能にする為の意味定義(関係性)を示すschema。ただしschema制約は「他JSONのプロパティ参照」以外つけてはならない。元schemaへ`allOf`で制約を追加して調整した物を使うことで「矛盾を型安全に防止する」のが現在のベストプラクティス",
 	"type": "object",
 	"required": ["contents"],
