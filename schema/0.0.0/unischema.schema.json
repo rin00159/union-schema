@@ -1,0 +1,65 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "DirectoryContentsSchema",
+	"description": "複数の意味定義が重複しうる`JSONShema定義`同士を安全に併用可能にする為の意味定義(関係性)を示すschema。ただしschema制約は「他JSONのプロパティ参照」以外つけてはならない。元schemaへ`allOf`で制約を追加して調整した物を使うことで「矛盾を型安全に防止する」のが現在のベストプラクティス",
+	"type": "object",
+	"required": ["contents"],
+	"additionalProperties": false,
+	"properties": {
+		"contents": {
+			"type": "array",
+			"description": "ディレクトリ直下に配置するファイルや仕様の一覧",
+			"items": {
+				"$ref": "#/$defs/contentItem"
+			}
+		}
+	},
+	"$defs": {
+		"contentItem": {
+			"type": "object",
+			"required": ["name", "position"],
+			"additionalProperties": false,
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "対象ファイル名",
+					"examples": ["DIRDESC.yaml", "package.json"]
+				},
+				"priority": {
+					"type": "integer",
+					"title": "優先度",
+					"description": "数値が大きいほど優先",
+					"minimum": 0,
+					"default": 0
+				},
+				"position": {
+					"type": "string",
+					"description": "このファイルの位置づけや役割の説明"
+				},
+				"schema": {
+					"type": "object",
+					"description": "同じunischemaに記されるjsonとの参照関係などを示すために使われる",
+					"propertyNames": {
+						"format": "json-pointer"
+					},
+					"additionalProperties": {
+						"type": "object",
+						"required": ["file", "pointer"],
+						"additionalProperties": false,
+						"properties": {
+							"file": {
+								"type": "string",
+								"description": "参照先のファイル名 (例: package.json)"
+							},
+							"pointer": {
+								"type": "string",
+								"format": "json-pointer",
+								"description": "参照先ファイル内のJSONポインタ (例: /name)"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
