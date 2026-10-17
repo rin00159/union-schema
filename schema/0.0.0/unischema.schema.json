@@ -26,12 +26,11 @@
 					"description": "対象ファイル名",
 					"examples": ["DIRDESC.yaml", "package.json"]
 				},
-				"priority": {
+				"placementOrder": {
 					"type": "integer",
-					"title": "優先度",
-					"description": "数値が大きいほど優先",
-					"minimum": 0,
-					"default": 0
+					"title": "検討順序",
+					"description": "情報項目の配置先を決める際の検討順序。小さい値のファイルから順に検討する。各ファイルの記述箇所は排他的で、同じ情報項目が複数のファイルに書ける場合にどこへ書くかを決めるための順序であり、値の競合時にどれが勝つかを表すものではない。ただし、既存の標準的な定義がその情報を持つ場合は、この順序より既存の定義を優先する",
+					"minimum": 0
 				},
 				"position": {
 					"type": "string",
